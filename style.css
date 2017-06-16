@@ -1,0 +1,242 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+form,
+fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #5fbfb6;
+}
+
+h1,
+h2 {
+  font-family: 'Overpass', sans-serif;
+  font-weight: 200;
+}
+
+h1 {
+  font-size: 2.0rem;
+  margin: 10px auto;
+  text-align: center;
+}
+
+h2 {
+  font-size: 1.2rem;
+}
+
+input,
+label {
+  margin: 5px auto;
+  display: block;
+}
+
+input {
+  background: #41a49a;
+  border: 0;
+  padding: 5px;
+  color: #eaf2eb;
+  border-radius: 4px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin: 10px;
+}
+
+fieldset {
+  margin: 0 10px;
+}
+
+datalist {
+  width: 100%;
+  height: 50px;
+}
+
+::placeholder {
+  color: #eaf2eb;
+}
+
+a {
+  text-decoration: none;
+  color: #ddd;
+  transition: all 0.2s ease;
+}
+
+a:hover {
+  color: #eaf2eb;
+}
+
+#app {
+  background: #5fbfb6;
+  color: #eaf2eb;
+  font-family: 'Open Sans', sans-serif;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.2s;
+}
+
+#user-panel {
+  width: 100%;
+  box-shadow: 0 2px 5px 1px rgba(20, 20, 20, 0.25);
+  z-index: 1;
+}
+
+#map {
+  height: 100%;
+  width: 100vw;
+  overflow-y: hidden;
+}
+
+#loc-info {
+  color: #505559;
+  font-weight: 500;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.loc-heading {
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+
+.loc-thumb {
+  width: 150px;
+  height: auto;
+}
+
+.places-list {
+  min-height: 100px;
+}
+
+.marker-list {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  cursor: default;
+  padding: 0;
+}
+
+.marker-list-item {
+  background: #41a49a;
+  border: 0;
+  padding: 5px;
+  margin: 10px;
+  color: #eaf2eb;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  user-select: none;
+}
+
+.marker-list-item::after {
+  width: 20px;
+  height: 20px;
+  background: #41a49a;
+  color: #d74440;
+  content: '❌';
+  transition: color 0.2s ease;
+  margin-left: 5px;
+}
+
+.marker-list-item:hover::after{
+  color: #e99996;
+}
+
+
+
+/* MEDIA QUERIES */
+
+@media screen and (min-width: 376px) {
+
+  h1 {
+    font-size: 2.5rem;
+    text-align: left;
+    margin: 20px 0 0 20px;
+  }
+
+  h2 {
+    font-size: 1.1rem;
+  }
+
+  form {
+    text-align: left;
+  }
+
+  fieldset {
+    display: inline-block;
+  }
+
+  .marker-list {
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+}
+
+@media screen and (min-width: 640px) {
+  form {
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+}
+
+@media screen and (min-width: 1444px) {
+
+  h1 {
+    text-align: right;
+    margin: 15px;
+  }
+
+  form {
+    flex-direction: column;
+  }
+
+  fieldset {
+    display: block;
+  }
+
+  input {
+    width: 100%;
+  }
+
+  #app {
+    flex-direction: row;
+  }
+
+  #user-panel {
+    display: inline-block;
+    width: 320px;
+    height: 100%;
+    float: right;
+    box-shadow: -2px 0 5px 1px rgba(20, 20, 20, 0.25);
+    order: 1;
+  }
+
+  #map {
+    display: inline-block;
+    height: 100vh;
+    width: calc(100vw - 320px);
+    float: right;
+  }
+
+  .marker-list {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+}

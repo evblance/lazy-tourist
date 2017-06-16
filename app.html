@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <title>Neighbourhood Map</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  <link href="https://fonts.googleapis.com/css?family=Overpass|Open+Sans" rel="stylesheet">
+  <link href="style.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <div id="app">
+
+    <div id="user-panel">
+      <h1>Neighbourhood Map</h1>
+      <form>
+        <fieldset>
+          <label name="list">Places&nbsp;list</label>
+          <select class="places-list" data-bind="options: markers, optionsText: function(marker) { return marker.name; }, selectedOptions: chosenMarkers" multiple="true"></select>
+        </fieldset>
+        <fieldset data-bind="visible: haveChosenPlaces">
+          <label name="search">Places&nbsp;selected</label>
+          <ul class="marker-list" data-bind="foreach: chosenMarkers">
+            <li class="marker-list-item" data-bind="text: name, click: function() {$parent.unchooseMarker($data)}"><span>Hello</span></li>
+          </ul>
+        </fieldset>
+      </form>
+    </div>
+
+    <div id="map"></div>
+
+  </div>
+
+  <script src="lib/jquery-3.2.1.min.js"></script>
+  <script src="lib/knockout-3.4.2.js"></script>
+  <script src="app.js"></script>
+  <script src="http://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBKC_eBqbyWzVOm2d8KEY5IC4NYxb2f4cA&callback=initMap"></script>
+
+</body>
+
+</html>
