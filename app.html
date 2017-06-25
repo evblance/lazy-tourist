@@ -21,12 +21,15 @@
       <form>
         <fieldset>
           <label name="list">Places&nbsp;list</label>
-          <select class="places-list" data-bind="options: markers, optionsText: function(marker) { return marker.name; }, selectedOptions: chosenMarkers" multiple="true"></select>
+          <select class="places-list" data-bind="options: markers, optionsText: 'name', selectedOptions: chosenMarkers" multiple="true"></select>
         </fieldset>
         <fieldset data-bind="visible: haveChosenPlaces">
           <label name="search">Places&nbsp;selected</label>
           <ul class="marker-list" data-bind="foreach: chosenMarkers">
-            <li class="marker-list-item" data-bind="text: marker().name, click: function() {$parent.unchooseMarker($data)}"></li>
+            <li class="marker-list-item">
+              <p class="marker-list-item-text" data-bind="text: $data.name, click: $parent.showMarker"></p>
+              <span class="kill-marker" data-bind="click: function() { $parent.unchooseMarker($data) }">❌</span>
+            </li>
           </ul>
         </fieldset>
       </form>
