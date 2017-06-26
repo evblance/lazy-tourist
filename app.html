@@ -23,6 +23,7 @@
         <!-- list of places -->
         <fieldset>
           <label name="list">Places&nbsp;list</label>
+          <select class="places-list" data-bind="options: markers, optionsText: 'name', selectedOptions: loadedMarkers, click: $root.placesListClick" multiple="true"></select>
         </fieldset>
         <!-- selected places -->
         <fieldset data-bind="visible: haveLoadedMarkers">
