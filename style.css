@@ -23,8 +23,9 @@ h2 {
 
 h1 {
   font-size: 2.0rem;
-  margin: 10px auto;
+  margin: 10px 0 0;
   text-align: center;
+  float: left;
 }
 
 h2 {
@@ -45,10 +46,16 @@ select {
 }
 
 form {
-  display: flex;
+  display: none;
   flex-direction: column;
   text-align: center;
+  transition: all 0.3s ease;
   margin: 10px;
+  clear: both;
+}
+
+.ui-shown {
+  display: flex;
 }
 
 fieldset {
@@ -105,6 +112,24 @@ a:hover {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.hamburger {
+  font-size: 1.5rem;
+  text-align: center;
+  line-height: calc(4rem + 20px);
+  margin: 0 20px 0;
+  transition: all 0.2s ease;
+  user-select: none;
+  cursor: default;
+}
+
+.hamburger span {
+  cursor: pointer;
+}
+
+.hamburger-on {
+  color: yellow;
 }
 
 .loc-heading {
@@ -167,12 +192,17 @@ a:hover {
 
 /* MEDIA QUERIES */
 
+@media screen and (min-width: 291px) {
+
+  h1 {
+    margin: 20px 0 0 20px;
+  }
+}
+
 @media screen and (min-width: 376px) {
 
   h1 {
     font-size: 2.5rem;
-    text-align: left;
-    margin: 20px 0 0 20px;
   }
 
   h2 {
@@ -196,10 +226,18 @@ a:hover {
 }
 
 @media screen and (min-width: 640px) {
+  h1 {
+    text-align: left;
+  }
+
   form {
     flex-direction: row;
     justify-content: flex-start;
     align-items: flex-start;
+  }
+
+  .hamburger {
+      text-align: right;
   }
 }
 
@@ -211,6 +249,7 @@ a:hover {
   }
 
   form {
+    display: flex;
     flex-direction: column;
   }
 
@@ -240,6 +279,10 @@ a:hover {
     height: 100vh;
     width: calc(100vw - 320px);
     float: right;
+  }
+
+  .hamburger {
+    display: none;
   }
 
   .marker-list {

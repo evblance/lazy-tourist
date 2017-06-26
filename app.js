@@ -197,3 +197,14 @@ function initMap() {
   initMarkers();
 
 }
+
+// check visibility instead of toggling to avoid bug on user resize
+$('.hamburger').on('click', 'span', function() {
+  if ( $('form').is(':visible') ) {
+    $('form').removeClass('ui-shown');
+    $('.hamburger').removeClass('hamburger-on');
+  } else {
+    $('.hamburger').addClass('hamburger-on');
+    $('form').addClass('ui-shown');
+  }
+});
