@@ -20,15 +20,16 @@
       <h1>Neighbourhood Map</h1>
       <div class="hamburger">Choose&nbsp;places&nbsp;&nbsp;<span>☰</span></div>
       <form>
+        <!-- list of places -->
         <fieldset>
           <label name="list">Places&nbsp;list</label>
-          <select class="places-list" data-bind="options: markers, optionsText: 'name', selectedOptions: chosenMarkers" multiple="true"></select>
         </fieldset>
-        <fieldset data-bind="visible: haveChosenPlaces">
+        <!-- selected places -->
+        <fieldset data-bind="visible: haveLoadedMarkers">
           <label name="search">Places&nbsp;selected</label>
-          <ul class="marker-list" data-bind="foreach: chosenMarkers">
+          <ul class="marker-list" data-bind="foreach: loadedMarkers">
             <li class="marker-list-item">
-              <p class="marker-list-item-text" data-bind="text: $data.name, click: $parent.showMarker"></p>
+              <p class="marker-list-item-text" data-bind="text: $data.name, click: $parent.selectMarker"></p>
               <span class="kill-marker" data-bind="click: function() { $parent.unchooseMarker($data) }">❌</span>
             </li>
           </ul>

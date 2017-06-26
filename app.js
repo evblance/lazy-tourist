@@ -1,67 +1,3 @@
-/* VIEWMODEL */
-
-var NeighbourhoodViewModel = function() {
-
-  var self = this;
-
-  this.markers = ko.observableArray([]);
-
-  this.chosenMarkers = ko.observableArray([]);
-
-  this.haveChosenPlaces = ko.computed(function() {
-    return this.chosenMarkers().length > 0;
-  }, this);
-
-  this.unchooseMarker = function(data) {
-    chosenMarkers = self.chosenMarkers();
-    numChosenMarkers = chosenMarkers.length;
-    for (var i = 0; i < numChosenMarkers; i++) {
-      if (data.name === chosenMarkers[i].name) {
-        chosenMarkers[i].setMap(null);
-        self.chosenMarkers.splice(i,1);
-        return;
-      }
-    }
-  };
-
-  this.unbounceAllMarkers = function() {
-    self.markers().forEach(function(m) {
-      if (m.getAnimation() !== null) {
-        m.setAnimation(null);
-      }
-    });
-  };
-
- // function to show a clicked marker
- this.showMarker = function(marker) {
-   // use the marker data to locate the correct marker form the ko arrays then update it to have the correct map
-   console.log(marker);
-   console.log(map);
- };
-
-
-  // function that recalculates map bounds to encompass only the currently selected places
-  this.refreshBounds = function() {
-    // TODO: THis should also be handled by Google Maps API
-  };
-
-  // function that centers the map on marker if it was clicked
-  this.centreMapOnMarker = function() {
-    // TODO: This goes does not belong in the viewModel, but rather should be click event listener on the markers
-  };
-
-};
-
-var nbhVM = new NeighbourhoodViewModel();
-ko.applyBindings(nbhVM);
-
-// ko.bindingHandlers.neighbourhoodMap = {
-//   init: function(document.getElementById('map'), )
-// }
-
-
-/* MAP STUFF */
-
 function initMap() {
 
   MARKER_ICON = 'icons/marker.png';
@@ -101,7 +37,7 @@ function initMap() {
 
   var montreal = {lat: 45.501631, lng: -73.567002};
 
-  var map = new google.maps.Map(document.getElementById('map'),{
+  var nbhMap = new google.maps.Map(document.getElementById('map'),{
     center: montreal,
     zoom: 13,
     mapTypeControl: false,
@@ -112,7 +48,7 @@ function initMap() {
 
   var geocoder = new google.maps.Geocoder;
 
-  var placesService = new google.maps.places.PlacesService(map);
+  var placesService = new google.maps.places.PlacesService(nbhMap);
 
   var bounds = new google.maps.LatLngBounds();
 
@@ -142,13 +78,12 @@ function initMap() {
             var marker = new google.maps.Marker({
               name: response.name,
               position: coords,
-              map: map,
+              map: nbhMap,
               animation: google.maps.Animation.DROP,
               icon: MARKER_ICON
             });
 
-            marker.addListener('click', function(event) {
-
+            function markerListener(event) {
               var streetViewUrl = 'https://maps.googleapis.com/maps/api/streetview?key=AIzaSyBKC_eBqbyWzVOm2d8KEY5IC4NYxb2f4cA';
               streetViewUrl += '&location=' + coords.lat + ',' + coords.lng;
               streetViewUrl += '&size=200x200';
@@ -157,7 +92,7 @@ function initMap() {
               var infoHtml = '<div id="loc-info"><h2 class="loc-heading">' + marker.name + '</h2><img class="loc-thumb" src="' + streetViewUrl + '" alt="location thumbnail"></div>';
               infoWindow.close();
               infoWindow.setContent(infoHtml);
-              infoWindow.open(map, marker);
+              infoWindow.open(nbhMap, marker);
               infoWindow.addListener('closeclick', function() {
                 infoWindow.map = null;
                 infoWindow.marker = null;
@@ -169,13 +104,14 @@ function initMap() {
               marker.setAnimation(google.maps.Animation.BOUNCE);
 
               // center the map on the clicked marker
-              map.setCenter(coords);
+              nbhMap.setCenter(coords);
+            }
 
-            });
+            marker.addListener('click', markerListener);
             bounds.extend(coords);
-            map.fitBounds(bounds);
+            nbhMap.fitBounds(bounds);
             nbhVM.markers.push(marker);
-            nbhVM.chosenMarkers.push(marker);
+            nbhVM.loadedMarkers.push(marker);
 
           } else {
             window.alert('Places Services had an error');
@@ -189,13 +125,113 @@ function initMap() {
 
   }
 
-  map.addListener('click', function(event) {
+  nbhMap.addListener('click', function(event) {
     infoWindow.close();
     nbhVM.unbounceAllMarkers();
   });
 
-  initMarkers();
 
+  /* VIEWMODEL */
+
+  var NeighbourhoodViewModel = function() {
+
+    var self = this;
+
+    this.map = nbhMap;
+
+    this.markers = ko.observableArray([]);
+
+    this.loadedMarkers = ko.observableArray([]);
+
+    this.haveLoadedMarkers = ko.computed(function() {
+      return this.loadedMarkers().length > 0;
+    }, this);
+
+    this.unchooseMarker = function(data) {
+      var loadedMarkers = self.loadedMarkers();
+      var numLoadedMarkers = loadedMarkers.length;
+      for (var i = 0; i < numLoadedMarkers; i++) {
+        if (data.name === loadedMarkers[i].name) {
+          // hide marker
+          loadedMarkers[i].setMap(null);
+          // remove the marker from chosen array
+          self.loadedMarkers.splice(i,1);
+          return;
+        }
+      }
+    };
+
+    this.updateMarkers = function() {
+      self.markers().forEach(function(marker) {
+        marker.setMap(null);
+      });
+      console.log('hello');
+      self.loadedMarkers().forEach(function(marker) {
+        marker.setMap(self.map);
+      });
+    };
+
+    this.chooseMarker = function(data) {
+      self.markers().forEach(function(marker) {
+        if (marker.name === data.name) {
+          marker.setMap(self.map);
+        }
+      });
+    };
+
+    this.unbounceAllMarkers = function() {
+      self.markers().forEach(function(marker) {
+        if (marker.getAnimation() !== null) {
+          marker.setAnimation(null);
+        }
+      });
+    };
+
+   // function to show a clicked marker
+   this.selectMarker = function(marker) {
+     // use the marker data to locate the correct marker form the ko arrays then update it to have the correct map
+    self.unbounceAllMarkers();
+    marker.setAnimation(google.maps.Animation.BOUNCE);
+    self.map.setCenter({ lat: marker.position.lat(), lng: marker.position.lng() });
+    self.markers().forEach(function(m) {
+      if (m.name === marker.name) {
+        m.setMap(self.map);
+      }
+    });
+   };
+
+   // function to check if marker is selected
+   this.chosenMarker = function(data) {
+     self.loadedMarkers().forEach(function(marker) {
+       if (marker === data) {
+         return true;
+       }
+     });
+     return false;
+   };
+
+    // function that recalculates map bounds to encompass only the currently selected places
+    this.refreshBounds = function() {
+      var bounds = new google.maps.LatLngBounds();
+      self.loadedMarkers().forEach(function(marker) {
+        bounds.extend({lat: marker.position.lat(), lng: marker.position.lng()});
+      });
+      self.map.fitBounds(bounds);
+      self.map.setZoom(18);
+    };
+
+    this.placesListClick = function() {
+      self.updateMarkers();
+      self.refreshBounds();
+    };
+
+  };
+
+
+  var nbhVM = new NeighbourhoodViewModel();
+  ko.applyBindings(nbhVM);
+
+  initMarkers();
 }
 
 // check visibility instead of toggling to avoid bug on user resize
