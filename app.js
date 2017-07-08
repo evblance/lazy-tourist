@@ -219,7 +219,6 @@ function initMap() {
         bounds.extend({lat: marker.position.lat(), lng: marker.position.lng()});
       });
       self.map.fitBounds(bounds);
-      self.map.setZoom(18);
     };
 
     this.placesListClick = function() {
