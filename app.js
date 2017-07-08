@@ -1,3 +1,5 @@
+// TODO: Add OpenWeatherMap data for locality and display somewhere in UI
+
 function initMap() {
 
   MARKER_ICON = 'icons/marker.png';
