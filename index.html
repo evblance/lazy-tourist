@@ -3,12 +3,13 @@
 <html lang="en">
 
 <head>
+
   <title>Lazy Tourist</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
-  <link href="https://fonts.googleapis.com/css?family=Overpass|Open+Sans" rel="stylesheet">
-  <link async href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Overpass%7COpen+Sans" rel="stylesheet">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
   <link href="style.css" rel="stylesheet">
 
 </head>
@@ -19,17 +20,17 @@
 
       <nav class="app__menu">
         <h1 class="app__heading">Lazy&nbsp;Tourist</h1>
-        <div class="app__menu-toggle" icon="☰"></div>
+        <div class="app__menu-toggle" title="☰"></div>
       </nav>
 
       <div id="user-panel" class="places-ui">
-        <label class="places-ui__label" name="filter" for="places-filter">Filter</label>
-        <input class="places-ui__filter" name="places-filter" placeholder="Start typing..." data-bind="textInput: filterString, event: { keyup: $root.refreshMarkerDisplay, focusin: $root.lockMapZoom, focusout: $root.unlockMapZoom }">
+        <label class="places-ui__label">Filter</label>
+        <input class="places-ui__filter" placeholder="Start typing..." data-bind="textInput: filterString, event: { keyup: $root.refreshMarkerDisplay, focusin: $root.lockMapZoom, focusout: $root.unlockMapZoom }">
         <hr class="divider">
-        <label class="places-ui__label" name="list" for="places-list">Points of Interest</label>
+        <label class="places-ui__label">Points of Interest</label>
         <div class="places-ui__list__container">
           <div class="places-ui__notification" data-bind="visible: $root.filterMarkers(filterString()).length < 1">no results</div>
-          <ul class="places-ui__list" name="places-list" data-bind="foreach: $root.filterMarkers(filterString())">
+          <ul class="places-ui__list" data-bind="foreach: $root.filterMarkers(filterString())">
             <li class="places-ui__list-item" data-bind="text: $data.name, click: $root.selectMarker, css: { selected: $root.getSelectedMarker($data) }"></li>
           </ul>
         </div>

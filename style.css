@@ -70,7 +70,7 @@ main {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0px 1px 5px 1px rgba(20, 20, 20, 0.25);
+  box-shadow: 0 1px 5px 1px rgba(20, 20, 20, 0.25);
   z-index: 2;
   height: 60px;
   user-select: none;
@@ -88,7 +88,7 @@ main {
 }
 
 .app__menu-toggle::before {
-  content: attr(icon);
+  content: attr(title);
 }
 
 .app__menu-toggle:hover{
@@ -119,9 +119,6 @@ main {
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
-}
-
-.loc-thumblist__item {
 }
 
 .loc-address {
@@ -176,7 +173,7 @@ main {
   right: -100vw;
   top: 0;
   text-align: center;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-out;
   width: 200px;
   z-index: 1;
   height: 100vh;
@@ -325,7 +322,7 @@ main {
     flex-direction: column;
     width: 320px;
     height: 100%;
-    box-shadow: -2px 0px 5px 1px rgba(20,20,20,0.25);
+    box-shadow: -2px 0 5px 1px rgba(20,20,20,0.25);
     top: 0;
     right: 0;
     padding: 100px 0 0;
@@ -335,11 +332,5 @@ main {
     transform: translateX(0px);
   }
 
-  .map {
-    display: inline-block;
-    height: 100vh;
-    width: calc(100vw - 320px);
-    float: right;
-  }
 
 }

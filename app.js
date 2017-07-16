@@ -32,16 +32,16 @@ function initMap() {
 
   // hard-coded array of locations of interest
   var locations = [
-    'Olympic Park Montreal',
-    'Mont-Royal Montreal',
-    'Vieux Montreal',
-    'Garden Montreal',
-    'Tower Montreal',
-    'Circuit Gilles-Villeneuve',
-    'Places des Arts Montreal',
-    'Notre-Dame Basilica',
-    'Chateau Dufresne',
-    'Universite de Montreal'
+    'Olympic Park Montreal'
+    // 'Mont-Royal Montreal',
+    // 'Vieux Montreal',
+    // 'Garden Montreal',
+    // 'Tower Montreal',
+    // 'Circuit Gilles-Villeneuve',
+    // 'Places des Arts Montreal',
+    // 'Notre-Dame Basilica',
+    // 'Chateau Dufresne',
+    // 'Universite de Montreal'
   ];
 
   // array of custom map styles to remove default POIs from map
@@ -400,9 +400,9 @@ function initMap() {
 $('.app__menu').on('click', '.app__menu-toggle', function() {
   if ( $('.places-ui').hasClass('places-ui--shown') ) {
     $('.places-ui').removeClass('places-ui--shown');
-    $('.app__menu-toggle').attr('icon', '☰');
+    $('.app__menu-toggle').attr('title', '☰');
   } else {
     $('.places-ui').addClass('places-ui--shown');
-    $('.app__menu-toggle').attr('icon', '❌');
+    $('.app__menu-toggle').attr('title', '❌');
   }
 });
