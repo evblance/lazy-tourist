@@ -3,49 +3,46 @@
 <html lang="en">
 
 <head>
-  <title>Neighbourhood Map</title>
+  <title>Lazy Tourist</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
   <link href="https://fonts.googleapis.com/css?family=Overpass|Open+Sans" rel="stylesheet">
+  <link async href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
   <link href="style.css" rel="stylesheet">
 
 </head>
 
 <body>
 
-  <div id="app">
+  <div id="app" class="app">
 
-    <div id="user-panel">
-      <h1>Neighbourhood Map</h1>
-      <div class="hamburger">Choose&nbsp;places&nbsp;&nbsp;<span>☰</span></div>
-      <form>
-        <!-- list of places -->
-        <fieldset>
-          <label name="list">Places&nbsp;list</label>
-          <select class="places-list" data-bind="options: markers, optionsText: 'name', selectedOptions: loadedMarkers, click: $root.placesListClick" multiple="true"></select>
-        </fieldset>
-        <!-- selected places -->
-        <fieldset data-bind="visible: haveLoadedMarkers">
-          <label name="search">Places&nbsp;selected</label>
-          <ul class="marker-list" data-bind="foreach: loadedMarkers">
-            <li class="marker-list-item">
-              <p class="marker-list-item-text" data-bind="text: $data.name, click: $parent.selectMarker"></p>
-              <span class="kill-marker" data-bind="click: function() { $parent.unchooseMarker($data) }">❌</span>
-            </li>
+      <nav class="app__menu">
+        <h1 class="app__heading">Lazy&nbsp;Tourist</h1>
+        <div class="app__menu-toggle" icon="☰"></div>
+      </nav>
+
+      <div id="user-panel" class="places-ui">
+        <label class="places-ui__label" name="filter" for="places-filter">Filter</label>
+        <input class="places-ui__filter" name="places-filter" placeholder="Start typing..." data-bind="textInput: filterString, event: { keyup: $root.refreshMarkerDisplay, focusin: $root.lockMapZoom, focusout: $root.unlockMapZoom }">
+        <hr class="divider">
+        <label class="places-ui__label" name="list" for="places-list">Points of Interest</label>
+        <div class="places-ui__list__container">
+          <div class="places-ui__notification" data-bind="visible: $root.filterMarkers(filterString()).length < 1">no results</div>
+          <ul class="places-ui__list" name="places-list" data-bind="foreach: $root.filterMarkers(filterString())">
+            <li class="places-ui__list-item" data-bind="text: $data.name, click: $root.selectMarker, css: { selected: $root.getSelectedMarker($data) }"></li>
           </ul>
-        </fieldset>
-      </form>
-    </div>
+        </div>
+      </div>
 
-    <div id="map"></div>
+    <div id="map" class="map"></div>
 
   </div>
 
   <script src="lib/jquery-3.2.1.min.js"></script>
   <script src="lib/knockout-3.4.2.js"></script>
   <script src="app.js"></script>
-  <script src="http://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBKC_eBqbyWzVOm2d8KEY5IC4NYxb2f4cA&callback=initMap"></script>
+  <script async src="http://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBKC_eBqbyWzVOm2d8KEY5IC4NYxb2f4cA&callback=initMap"></script>
 
 </body>
 

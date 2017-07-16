@@ -3,85 +3,33 @@
 }
 
 html,
-body,
-form,
-fieldset {
+body {
   border: 0;
   margin: 0;
   padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
 }
 
 body {
   background: #5fbfb6;
-}
-
-h1,
-h2 {
-  font-family: 'Overpass', sans-serif;
-  font-weight: 200;
-}
-
-h1 {
-  font-size: 2.0rem;
-  margin: 10px 0 0;
-  text-align: center;
-  float: left;
-}
-
-h2 {
-  font-size: 1.2rem;
-}
-
-label {
-  margin: 5px auto;
-  display: block;
-}
-
-select {
-  background: #41a49a;
-  border: 0;
-  padding: 5px;
   color: #eaf2eb;
-  border-radius: 4px;
-}
-
-form {
-  display: none;
-  flex-direction: column;
-  text-align: center;
-  transition: all 0.3s ease;
-  margin: 10px;
-  clear: both;
-}
-
-.ui-shown {
-  display: flex;
-}
-
-fieldset {
-  margin: 0 10px;
-}
-
-datalist {
+  height: 100%;
   width: 100%;
-  height: 50px;
+  position: relative;
 }
 
-::placeholder {
-  color: #eaf2eb;
+main {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
 }
 
-a {
-  text-decoration: none;
-  color: #ddd;
-  transition: all 0.2s ease;
-}
 
-a:hover {
-  color: #eaf2eb;
-}
-
-#app {
+.app {
   background: #5fbfb6;
   color: #eaf2eb;
   font-family: 'Open Sans', sans-serif;
@@ -90,204 +38,308 @@ a:hover {
   display: flex;
   flex-direction: column;
   transition: all 0.2s;
+  position: relative;
 }
 
-#user-panel {
-  width: 100%;
-  box-shadow: 0 2px 5px 1px rgba(20, 20, 20, 0.25);
-  z-index: 1;
+.app .loc-heading {
+  color: #40243d;
 }
 
-#map {
-  height: 100%;
-  width: 100vw;
-  overflow-y: hidden;
+.app__heading {
+  font-family: 'Overpass', sans-serif;
+  font-size: 1.0rem;
+  font-weight: 200;
+  margin: 0 0 0 10px;
+  line-height: 60px;
+  padding: 0;
+  position: relative;
 }
 
-#loc-info {
-  color: #505559;
+.app__heading::after {
+  content: 'Powered by Flickr';
+  color: #ddd;
+  width: auto;
+  font-size: 10px;
+  height: auto;
+  position: absolute;
+  bottom: -10px;
+  right: 5px;
+}
+
+.app__menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0px 1px 5px 1px rgba(20, 20, 20, 0.25);
+  z-index: 2;
+  height: 60px;
+  user-select: none;
+  margin: 0;
+  padding: 0;
+}
+
+.app__menu-toggle {
+  font-size: 1.5rem;
+  text-align: center;
+  margin: 0 1.5rem 0;
+  transition: all 0.3s ease-out;
+  user-select: none;
+  cursor: pointer;
+}
+
+.app__menu-toggle::before {
+  content: attr(icon);
+}
+
+.app__menu-toggle:hover{
+  color: #ffe165;
+}
+
+.divider {
+  width: 90%;
+  margin: 10px auto;
+  height: 2px;
+  border: 0;
+  background: #eaf2eb;
+}
+
+.loc-info {
+  color: #40243d;
   font-weight: 500;
   text-align: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 10px;
 }
 
-.hamburger {
-  font-size: 1.5rem;
+.loc-thumblist {
+  list-style: none;
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.loc-thumblist__item {
+}
+
+.loc-address {
+  font-size: 0.7rem;
   text-align: center;
-  line-height: calc(4rem + 20px);
-  margin: 0 20px 0;
-  transition: all 0.2s ease;
-  user-select: none;
-  cursor: default;
-}
-
-.hamburger span {
-  cursor: pointer;
-}
-
-.hamburger-on {
-  color: yellow;
+  font-weight: 200;
+  margin: 0 auto;
 }
 
 .loc-heading {
   font-size: 0.8rem;
   font-weight: 800;
+  text-align: center;
+  margin: 0 auto;
 }
 
 .loc-thumb {
-  width: 150px;
-  height: auto;
+  width: 75px;
+  height: 75px;
+  margin: 5px;
+  opacity: 0.85;
+  border: 1px solid #40243d;
+  border-radius: 2px;
+  overflow: hidden;
+  transition: all 0.3s ease-out;
+  box-shadow: 0 1px 7px 1px rgba(20,20,20,0.25);
 }
 
-.places-list {
-  min-height: 100px;
+.loc-thumb:hover {
+  opacity: 1;
+  transform: scale(1.05);
 }
 
-.marker-list {
+/* Google Maps Infowindow */
+.gm-style-iw {
+    max-width: 300px;
+}
+
+.map {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100vw;
+
+}
+
+.places-ui {
+  background: #5fbfb6;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
+  position: absolute;
+  right: -100vw;
+  top: 0;
+  text-align: center;
+  transition: all 0.3s ease-in-out;
+  width: 200px;
+  z-index: 1;
+  height: 100vh;
+  padding: 0;
+  max-width: 100vw;
+}
+
+.places-ui--shown {
+  transform: translateX(-100vw);
+}
+
+.places-ui__label {
+  margin: 5px auto;
+  display: block;
+}
+
+.places-ui__label:first-child {
+  margin-top: 60px;
+}
+
+.places-ui__filter {
+  background: #41a49a;
+  color: #eaf2eb;
+  border: 0;
+  padding: 5px;
+  border-radius: 4px;
+  margin: 0 auto;
+  width: calc(100% - 10px);
+}
+
+::placeholder {
+  color: #ddd;
+  font-style: italic;
+}
+
+.places-ui__list__container {
+  padding: 5px;
+  width: 100%;
+  overflow-y: auto;
+}
+
+.places-ui__list {
+  text-align: left;
+  width: 100%;
+  background: #41a49a;
+  border-radius: 4px;
+  margin: 0 auto;
   list-style: none;
-  cursor: default;
   padding: 0;
 }
 
-.marker-list-item {
-  background: #41a49a;
-  border: 0;
-  padding: 5px;
-  margin: 10px;
-  color: #eaf2eb;
-  border-radius: 4px;
-  font-size: 0.7rem;
-  user-select: none;
+.places-ui__list-item {
   cursor: pointer;
+  display: block;
+  width: 100%;
+  transition: all 0.3s ease-out;
+  border-radius: 2px;
+  padding: 2px;
+  opacity: 0.5;
 }
 
-.marker-list-item-text {
-  display: inline;
-  transition: color 0.2s ease;
-}
-
-.marker-list-item-text:hover {
-  color: yellow;
-}
-
-.kill-marker {
-  width: 20px;
-  height: 20px;
+.selected,
+.places-ui__list-item.selected:hover {
+  color: #ffe165;
   background: #41a49a;
-  color: #d74440;
-  margin-left: 5px;
-  transition: color 0.2s ease;
+  opacity: 1;
 }
 
-.kill-marker:hover {
-  color: #e99996;
+.places-ui__list-item:hover {
+  color: #eaf2eb;
+  opacity: 1;
+  background: #41a49a;
 }
 
-
+.places-ui__notification {
+  font-size: 0.9rem;
+  font-style: italic;
+  opacity: 0.7;
+  margin-top: 20px;
+}
 
 /* MEDIA QUERIES */
 
-@media screen and (min-width: 291px) {
+@media screen and (min-width: 251px) {
 
-  h1 {
-    margin: 20px 0 0 20px;
+  .app__heading {
+    font-size: 1.5rem;
+    padding: 15px;
   }
+
+  .app__heading::after {
+      font-size: 11px;
+      bottom: -5px;
+  }
+
+  .places-ui {
+    right: -200px;
+  }
+
+  .places-ui--shown {
+    transform: translateX(-200px);
+  }
+
 }
 
-@media screen and (min-width: 376px) {
+@media screen and (min-width: 641px) {
 
-  h1 {
-    font-size: 2.5rem;
+  .app__heading {
+    font-size: 2.2rem;
   }
 
-  h2 {
-    font-size: 1.1rem;
+  /* Google Maps Infowindow */
+  .gm-style-iw {
+      max-width: 500px;
   }
 
-  form {
-    text-align: left;
-  }
-
-  fieldset {
-    display: inline-block;
-  }
-
-  .marker-list {
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: flex-start;
-    flex-wrap: wrap;
-  }
 }
 
-@media screen and (min-width: 640px) {
-  h1 {
-    text-align: left;
-  }
+@media screen and (min-width: 1764px) {
 
-  form {
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: flex-start;
-  }
-
-  .hamburger {
-      text-align: right;
-  }
-}
-
-@media screen and (min-width: 1444px) {
-
-  h1 {
+  .app__heading {
+    font-size: 3rem;
     text-align: right;
     margin: 15px;
   }
 
-  form {
-    display: flex;
-    flex-direction: column;
-  }
-
-  fieldset {
-    display: block;
-  }
-
-  input {
-    width: 100%;
-  }
-
-  #app {
+  .app {
     flex-direction: row;
   }
 
-  #user-panel {
-    display: inline-block;
-    width: 320px;
-    height: 100%;
-    float: right;
-    box-shadow: -2px 0 5px 1px rgba(20, 20, 20, 0.25);
+  .app__menu {
+    box-shadow: none;
+    height: 100px;
+    z-index: 2;
+    transform: translateZ(0);
     order: 1;
   }
 
-  #map {
+  .app__menu-toggle,
+  .app__menu-toggle::before {
+    display: none;
+  }
+
+  .places-ui {
+    display: flex;
+    flex-direction: column;
+    width: 320px;
+    height: 100%;
+    box-shadow: -2px 0px 5px 1px rgba(20,20,20,0.25);
+    top: 0;
+    right: 0;
+    padding: 100px 0 0;
+  }
+
+  .places-ui--shown {
+    transform: translateX(0px);
+  }
+
+  .map {
     display: inline-block;
     height: 100vh;
     width: calc(100vw - 320px);
     float: right;
   }
 
-  .hamburger {
-    display: none;
-  }
-
-  .marker-list {
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-  }
 }
