@@ -37,7 +37,7 @@ function initMap() {
 
   // hard-coded array of locations of interest
   var locations = [
-    'Olympic Park Montreal'
+    'Olympic Park Montreal',
     'Mont-Royal Montreal',
     'Vieux Montreal',
     'Garden Montreal',
