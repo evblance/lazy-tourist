@@ -38,15 +38,15 @@ function initMap() {
   // hard-coded array of locations of interest
   var locations = [
     'Olympic Park Montreal'
-    // 'Mont-Royal Montreal',
-    // 'Vieux Montreal',
-    // 'Garden Montreal',
-    // 'Tower Montreal',
-    // 'Circuit Gilles-Villeneuve',
-    // 'Places des Arts Montreal',
-    // 'Notre-Dame Basilica',
-    // 'Chateau Dufresne',
-    // 'Universite de Montreal'
+    'Mont-Royal Montreal',
+    'Vieux Montreal',
+    'Garden Montreal',
+    'Tower Montreal',
+    'Circuit Gilles-Villeneuve',
+    'Places des Arts Montreal',
+    'Notre-Dame Basilica',
+    'Chateau Dufresne',
+    'Universite de Montreal'
   ];
 
   // array of custom map styles to remove default POIs from map
