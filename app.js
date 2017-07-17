@@ -7,9 +7,6 @@
 //          -- Callback to initMap will have to be removed from Google Maps API request script and instead
 //             called on above form submission.
 
-/* SUMMON JS SENSEI */
-'use strict';
-
 /* CONSTANTS */
 var MARKER_ICON = 'icons/marker.png';
 var NUM_PHOTOS = 10;
@@ -70,7 +67,7 @@ function initMap() {
   });
 
   // create Geocoder Service instance
-  var geocoder = new google.maps.Geocoder;
+  var geocoder = new google.maps.Geocoder();
 
   // create Places Service instance
   var placesService = new google.maps.places.PlacesService(nbhVM.map);
@@ -277,6 +274,7 @@ var NeighbourhoodViewModel = function() {
   this.selectMarker = function() {
 
     var marker = this;
+    var infoHTML;
 
     // register the chosen marker
     self.selectedMarker(marker);
@@ -292,7 +290,7 @@ var NeighbourhoodViewModel = function() {
       self.infoWindow.open(self.map, marker);
     } else {
       // otherwise show some basic information while further data is loading
-      var infoHTML = '';
+      infoHTML = '';
       infoHTML += '<div class="loc-info">';
       infoHTML +=   '<h2 class="loc-heading">' + marker.name + '</h2>';
       infoHTML += '<h3 class="loc-address">' + marker.address + '</h3>';
@@ -305,7 +303,7 @@ var NeighbourhoodViewModel = function() {
 
     // Only ask Flickr for images if no image urls already cached for this marker
     if (marker.images.length === 0) {
-      var infoHTML = '';
+      infoHTML = '';
       // Build the request url starting from base
       var flickrReqURL = 'https://api.flickr.com/services/rest/?api_key=4fbd721770420193baf71260f79454ac';
       // set return format to json and make sure a pure json object is returned
@@ -372,7 +370,7 @@ var NeighbourhoodViewModel = function() {
         },
         error: function(err) {
 
-          alert('Flickr API returned an error with state', err.readyState);
+          window.alert('Flickr API returned an error with state', err.readyState);
 
         },
         complete: function() {
