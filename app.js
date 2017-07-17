@@ -96,7 +96,7 @@ function initMap() {
   }
 
   // Function that registers markers based on their location name
-  function createMarker(location, id) {
+  function createMarker(location) {
 
     var geocodeRequest = {
       address: location
@@ -333,7 +333,7 @@ var NeighbourhoodViewModel = function() {
           $('.loc-info').append('<span class="loader"><i class="fa fa-2x fa-refresh fa-spin" aria-hidden="true"></i></span>');
         },
         success: function(resp) {
-          var farmId, serverId, id, secret, title, photoURL, thumbURL, owner;
+          var farmId, serverId, id, secret, photoURL, thumbURL, owner;
           var infoHTML = '';
           var photoArr = resp.photos.photo;
           var numPhotos = photoArr.length;
@@ -402,7 +402,7 @@ var NeighbourhoodViewModel = function() {
   };
 
   // perform refresh of markers and bounds on map
-  this.refreshMarkerDisplay = function(data) {
+  this.refreshMarkerDisplay = function() {
     self.updateMarkers();
     self.refreshBounds();
   };
