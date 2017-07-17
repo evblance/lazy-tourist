@@ -337,12 +337,9 @@ var NeighbourhoodViewModel = function() {
         type: 'GET',
         datatype: 'json',
         beforeSend: function() {
-
           $('.loc-info').append('<span class="loader"><i class="fa fa-2x fa-refresh fa-spin" aria-hidden="true"></i></span>');
-
         },
         success: function(resp) {
-
           var farmId, serverId, id, secret, title, photoURL, thumbURL, owner;
           var infoHTML = '';
           var photoArr = resp.photos.photo;
@@ -377,7 +374,6 @@ var NeighbourhoodViewModel = function() {
           infoHTML += '</ul>';
           infoHTML += '</div>';
           marker.infoData = infoHTML;
-
         },
         error: function(err) {
 
@@ -385,11 +381,9 @@ var NeighbourhoodViewModel = function() {
 
         },
         complete: function() {
-
           // remove temporary loader icon and push new content to infoWindow
           $('.loader').remove();
           self.infoWindow.setContent(marker.infoData);
-
         }
       });
     }
