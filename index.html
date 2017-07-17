@@ -24,12 +24,12 @@
       </nav>
 
       <div id="user-panel" class="places-ui">
-        <label class="places-ui__label">Filter</label>
-        <input class="places-ui__filter" placeholder="Start typing..." data-bind="textInput: filterString, event: { keyup: $root.refreshMarkerDisplay, focusin: $root.lockMapZoom, focusout: $root.unlockMapZoom }">
         <hr class="divider">
+        <label class="places-ui__label places-ui__label--filter">Filter</label>
+        <input class="places-ui__filter" placeholder="Start typing..." data-bind="textInput: filterString, event: { keyup: $root.refreshMarkerDisplay, focusin: $root.lockMapZoom, focusout: $root.unlockMapZoom }">
         <label class="places-ui__label">Points of Interest</label>
         <div class="places-ui__list__container">
-          <div class="places-ui__notification" data-bind="visible: $root.filterMarkers(filterString()).length < 1">no results</div>
+          <div class="places-ui__notification" data-bind="html: $root.notificationText, visible: $root.filterMarkers(filterString()).length < 1"></div>
           <ul class="places-ui__list" data-bind="foreach: $root.filterMarkers(filterString())">
             <li class="places-ui__list-item" data-bind="text: $data.name, click: $root.selectMarker, css: { selected: $root.getSelectedMarker($data) }"></li>
           </ul>
