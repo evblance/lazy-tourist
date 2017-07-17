@@ -100,7 +100,7 @@ main {
   margin: 10px auto;
   height: 2px;
   border: 0;
-  background: #eaf2eb;
+  background: inherit;
 }
 
 .loc-info {
@@ -190,7 +190,7 @@ main {
   display: block;
 }
 
-.places-ui__label:first-child {
+.places-ui__label--filter {
   margin-top: 60px;
 }
 
@@ -317,6 +317,10 @@ main {
     display: none;
   }
 
+  .divider {
+    background: #eaf2eb;
+  }
+
   .places-ui {
     display: flex;
     flex-direction: column;
@@ -326,6 +330,10 @@ main {
     top: 0;
     right: 0;
     padding: 100px 0 0;
+  }
+
+  .places-ui__label--filter {
+    margin-top: 0;
   }
 
   .places-ui--shown {
