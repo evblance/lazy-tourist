@@ -14,12 +14,9 @@
 var MARKER_ICON = 'icons/marker.png';
 var NUM_PHOTOS = 10;
 
+/* GLOBAL VARIABLES */
 var $placesList = $('.places-ui__list');
 
-// set a timeout for initial access to Google Maps API
-var mapsInitTimeout = window.setTimeout(function() {
-  window.alert('Error: App timed out on accessing Google Maps API.');
-}, 3000);
 
 
 /* GOOGLE MAPS MACHINERY */
@@ -164,8 +161,6 @@ function initMap() {
   // sets notification text observable to value for filtering state
   nbhVM.notificationText('no results');
 }
-
-
 
 
 
@@ -415,6 +410,15 @@ var NeighbourhoodViewModel = function() {
   };
 
 };
+
+
+
+/* MAIN */
+
+// set a timeout for initial access to Google Maps API
+var mapsInitTimeout = window.setTimeout(function() {
+  window.alert('Error: App timed out on accessing Google Maps API.');
+}, 3000);
 
 // initialise ViewModel and bind it
 var nbhVM = new NeighbourhoodViewModel();
