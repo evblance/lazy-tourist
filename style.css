@@ -81,10 +81,6 @@ body {
   content: attr(title);
 }
 
-/*.app__menu-toggle:hover{
-  color: #ffe165;
-}*/
-
 .divider {
   background: inherit;
   border: 0;
@@ -95,7 +91,7 @@ body {
 
 /* Google Maps Infowindow */
 .gm-style-iw {
-  max-width: 300px;
+  max-width: 40vw;
 }
 
 .loc-address {
