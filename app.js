@@ -433,3 +433,8 @@ $('.app__menu').on('click', '.app__menu-toggle', function() {
     $('.app__menu-toggle').attr('title', '❌');
   }
 });
+
+$('#map').on('click', function() {
+  $('.places-ui').removeClass('places-ui--shown');
+  $('.app__menu-toggle').attr('title', '☰');
+});
