@@ -42,6 +42,7 @@ body {
   margin: 0 0 0 10px;
   padding: 0;
   position: relative;
+  user-select: none;
 }
 
 .app__heading::after {
@@ -292,6 +293,11 @@ body {
   /* Google Maps Infowindow */
   .gm-style-iw {
       max-width: 500px;
+  }
+
+  .loc-thumb {
+    height: 45px;
+    width: 45px;
   }
 
 }

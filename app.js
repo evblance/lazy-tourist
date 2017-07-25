@@ -63,6 +63,7 @@ function initMap() {
     zoom: 13,
     maxZoom: 13,
     mapTypeControl: false,
+    disableDefaultUI: true,
     styles: mapStyles
   });
 
